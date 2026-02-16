@@ -18,17 +18,16 @@ pipeline {
         stage('2. Linting (Vérification du code)') {
             steps {
                 echo 'Analyse du code Python...'
-                // On vérifie que le code respecte les standards PEP8
-                // Si le code est "sale", le pipeline s'arrête ici
-                sh 'docker run --rm ganafaye/seneventpro-backend:latest flake8 . || echo "Passer le linting pour le moment"'
+                // Note: On utilise le nom de l'image tel qu'il sera sur Docker Hub
+                sh 'docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest flake8 . || echo "Passer le linting pour le moment"'
             }
         }
 
         stage('3. Tests Unitaires') {
             steps {
                 echo 'Exécution des tests Django...'
-                // On lance les tests à l'intérieur du conteneur
-                sh 'docker exec backend_container python manage.py test || echo "Pas de tests définis"'
+                // On utilise || true pour éviter de bloquer si aucun test n'est trouvé
+                sh 'docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest python manage.py test || echo "Pas de tests définis"'
             }
         }
 
@@ -39,8 +38,9 @@ pipeline {
                         echo 'Connexion à Docker Hub...'
                         sh "echo $PASS | docker login -u $USER --password-stdin"
 
-                        echo 'Construction et envoi du Backend...'
-                        sh "docker build -t ${DOCKER_USER}/${BACKEND_IMAGE}:latest ./backend"
+                        echo 'Construction et envoi du Backend (DjangoProject)...'
+                        // ICI : Changement de ./backend par ./DjangoProject
+                        sh "docker build -t ${DOCKER_USER}/${BACKEND_IMAGE}:latest ./DjangoProject"
                         sh "docker push ${DOCKER_USER}/${BACKEND_IMAGE}:latest"
 
                         echo 'Construction et envoi du Frontend...'
@@ -54,7 +54,6 @@ pipeline {
         stage('5. Déploiement Kubernetes') {
             steps {
                 echo 'Préparation du déploiement sur Kubernetes (Minikube)...'
-                // Cette étape sera activée dès qu'on aura créé nos fichiers .yaml
                 sh 'echo "Prêt pour kubectl apply"'
             }
         }
