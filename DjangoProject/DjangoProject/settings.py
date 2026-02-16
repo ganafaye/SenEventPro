@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-wr7wqb^qjab1i(jidom#vy4z4^inu&e(^*ob1mc)p0o3fp0!5z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# RECTIFICATION : On autorise Docker et localhost
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware', # <--- AJOUTE CECI ICI
     'django.middleware.common.CommonMiddleware', # <--- DOIT ÊTRE EN DESSOUS
-    'django.middleware.common.CommonMiddleware',
+    #'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
