@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: db_container
+    environment:
+      - POSTGRES_DB=eventmaster_db
+      - POSTGRES_USER=gana_admin
+      - POSTGRES_PASSWORD=admin
+    networks:
+      - event_net
+
+  backend:
+    build: ./DjangoProject
+    container_name: backend_container
+    ports:
+      - "8000:8000"
+    environment:
+      # On donne ici les noms exacts que ton settings.py attend
+      - DATABASE_NAME=eventmaster_db
+      - DATABASE_USER=gana_admin
+      - DATABASE_PASSWORD=admin
+      - DATABASE_HOST=db  # <--- Indispensable pour Docker
+      - DATABASE_PORT=5432
+    depends_on:
+      - db
+    networks:
+      - event_net
+
+  frontend:
+    build: .
+    container_name: frontend_container
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - event_net
+
+networks:
+  event_net:
+    driver: bridge
