@@ -18,16 +18,15 @@ pipeline {
         stage('2. Linting (Vérification du code)') {
             steps {
                 echo 'Analyse du code Python...'
-                // Note: On utilise le nom de l'image tel qu'il sera sur Docker Hub
-                sh 'docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest flake8 . || echo "Passer le linting pour le moment"'
+                // On utilise le code du backend pour le linting
+                sh "docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest flake8 . || echo 'Passer le linting pour le moment'"
             }
         }
 
         stage('3. Tests Unitaires') {
             steps {
                 echo 'Exécution des tests Django...'
-                // On utilise || true pour éviter de bloquer si aucun test n'est trouvé
-                sh 'docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest python manage.py test || echo "Pas de tests définis"'
+                sh "docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest python manage.py test || echo 'Pas de tests définis'"
             }
         }
 
@@ -39,12 +38,12 @@ pipeline {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
 
                         echo 'Construction et envoi du Backend (DjangoProject)...'
-                        // ICI : Changement de ./backend par ./DjangoProject
                         sh "docker build -t ${DOCKER_USER}/${BACKEND_IMAGE}:latest ./DjangoProject"
                         sh "docker push ${DOCKER_USER}/${BACKEND_IMAGE}:latest"
 
-                        echo 'Construction et envoi du Frontend...'
-                        sh "docker build -t ${DOCKER_USER}/${FRONTEND_IMAGE}:latest ./frontend"
+                        echo 'Construction et envoi du Frontend (Racine du projet)...'
+                        // RECTIFICATION : On utilise "." car tes fichiers front sont à la racine
+                        sh "docker build -t ${DOCKER_USER}/${FRONTEND_IMAGE}:latest ."
                         sh "docker push ${DOCKER_USER}/${FRONTEND_IMAGE}:latest"
                     }
                 }
@@ -53,8 +52,9 @@ pipeline {
 
         stage('5. Déploiement Kubernetes') {
             steps {
-                echo 'Préparation du déploiement sur Kubernetes (Minikube)...'
-                sh 'echo "Prêt pour kubectl apply"'
+                echo 'Déploiement sur Kubernetes...'
+                // On prépare la commande pour plus tard
+                sh 'echo "kubectl apply -f k8s/"'
             }
         }
     }

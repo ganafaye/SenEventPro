@@ -1,0 +1,17 @@
+# Ignorer le backend pour l'image frontend
+DjangoProject/
+
+# Ignorer les dépendances locales
+node_modules/
+npm-debug.log
+
+# Ignorer les dossiers Git et Jenkins
+.git/
+.gitignore
+Jenkinsfile
+
+# Ignorer les environnements virtuels Python
+venv/
+.venv/
+__pycache__/
+*.pyc
