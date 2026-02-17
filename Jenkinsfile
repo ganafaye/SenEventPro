@@ -18,7 +18,6 @@ pipeline {
         stage('2. Linting (Vérification du code)') {
             steps {
                 echo 'Analyse du code Python...'
-                // On utilise le code du backend pour le linting
                 sh "docker run --rm ${DOCKER_USER}/${BACKEND_IMAGE}:latest flake8 . || echo 'Passer le linting pour le moment'"
             }
         }
@@ -37,11 +36,11 @@ pipeline {
                         echo 'Connexion à Docker Hub...'
                         sh "echo $PASS | docker login -u $USER --password-stdin"
 
-                        echo 'Construction et envoi du Backend (DjangoProject)...'
+                        echo 'Construction et envoi du Backend...'
                         sh "docker build -t ${DOCKER_USER}/${BACKEND_IMAGE}:latest ./DjangoProject"
                         sh "docker push ${DOCKER_USER}/${BACKEND_IMAGE}:latest"
 
-                        echo 'Construction et envoi du Frontend (Racine du projet)...'
+                        echo 'Construction et envoi du Frontend...'
                         sh "docker build -t ${DOCKER_USER}/${FRONTEND_IMAGE}:latest ."
                         sh "docker push ${DOCKER_USER}/${FRONTEND_IMAGE}:latest"
                     }
@@ -52,13 +51,12 @@ pipeline {
         stage('5. Déploiement Kubernetes') {
             steps {
                 script {
-                    // Utilisation du plugin Kubernetes CLI avec ton credential 'k8s-config'
                     withKubeConfig([credentialsId: 'k8s-config']) {
                         echo 'Déploiement sur le cluster Minikube...'
                         
-                        // S'assurer que le dossier k8s existe sur le repo avec les fichiers .yaml
-                        sh 'kubectl apply -f k8s/backend.yaml'
-                        sh 'kubectl apply -f k8s/frontend.yaml'
+                        // RECTIFICATION : On ajoute --validate=false pour contourner le timeout réseau
+                        sh 'kubectl apply -f k8s/backend.yaml --validate=false'
+                        sh 'kubectl apply -f k8s/frontend.yaml --validate=false'
                         
                         echo 'Vérification des ressources :'
                         sh 'kubectl get pods'
