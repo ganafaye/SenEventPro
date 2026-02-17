@@ -42,7 +42,6 @@ pipeline {
                         sh "docker push ${DOCKER_USER}/${BACKEND_IMAGE}:latest"
 
                         echo 'Construction et envoi du Frontend (Racine du projet)...'
-                        // RECTIFICATION : On utilise "." car tes fichiers front sont à la racine
                         sh "docker build -t ${DOCKER_USER}/${FRONTEND_IMAGE}:latest ."
                         sh "docker push ${DOCKER_USER}/${FRONTEND_IMAGE}:latest"
                     }
@@ -52,19 +51,30 @@ pipeline {
 
         stage('5. Déploiement Kubernetes') {
             steps {
-                echo 'Déploiement sur Kubernetes...'
-                // On prépare la commande pour plus tard
-                sh 'echo "kubectl apply -f k8s/"'
+                script {
+                    // Utilisation du plugin Kubernetes CLI avec ton credential 'k8s-config'
+                    withKubeConfig([credentialsId: 'k8s-config']) {
+                        echo 'Déploiement sur le cluster Minikube...'
+                        
+                        // S'assurer que le dossier k8s existe sur le repo avec les fichiers .yaml
+                        sh 'kubectl apply -f k8s/backend.yaml'
+                        sh 'kubectl apply -f k8s/frontend.yaml'
+                        
+                        echo 'Vérification des ressources :'
+                        sh 'kubectl get pods'
+                        sh 'kubectl get services'
+                    }
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'Félicitations ! Pipeline terminé avec succès.'
+            echo 'Félicitations ! Pipeline terminé avec succès et déployé sur K8s.'
         }
         failure {
-            echo 'Le pipeline a échoué. Vérifie les logs.'
+            echo 'Le pipeline a échoué. Vérifie les logs Docker ou la config Kube.'
         }
     }
 }
