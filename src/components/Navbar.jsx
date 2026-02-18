@@ -6,8 +6,9 @@ export default function Navbar() {
       <h1 className="text-2xl font-bold text-green-600">
           Projet Systeme Repartis
       </h1>
-
+// Mise à jour automatique de la Navbar via le pipeline CI/CD - Test du 18 Février 2026
       <div className="space-x-4">
+        
         <Link to="/" className="text-gray-700 hover:text-green-600">
           Voir les événements
         </Link>
