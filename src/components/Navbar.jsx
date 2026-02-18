@@ -9,7 +9,7 @@ export default function Navbar() {
 
       <div className="space-x-4">
         <Link to="/" className="text-gray-700 hover:text-green-600">
-          Repartis
+          Voir les événements
         </Link>
 
         <Link
