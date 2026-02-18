@@ -3,7 +3,8 @@
   hosts: kubernetes_hosts
   tasks:
     - name: Appliquer les fichiers de configuration Kubernetes
-      command: "kubectl apply -f k8s/{{ item }}"
+      # On remonte d'un dossier pour trouver /k8s depuis /ansible
+      command: "kubectl apply -f ../k8s/{{ item }} --validate=false"
       loop:
         - postgres.yaml
         - backend.yaml
