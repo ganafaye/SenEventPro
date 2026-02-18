@@ -1,0 +1,22 @@
+---
+- name: Déploiement de SenEventPro sur Kubernetes
+  hosts: kubernetes_hosts
+  tasks:
+    - name: Appliquer les fichiers de configuration Kubernetes
+      command: "kubectl apply -f k8s/{{ item }}"
+      loop:
+        - postgres.yaml
+        - backend.yaml
+        - frontend.yaml
+      register: apply_output
+
+    - name: Afficher le résultat de l'application
+      debug:
+        msg: "{{ item.stdout }}"
+      loop: "{{ apply_output.results }}"
+
+    - name: Forcer le redémarrage des Pods pour utiliser les nouvelles images
+      command: "kubectl rollout restart deployment {{ item }}"
+      loop:
+        - backend-deployment
+        - frontend-deployment

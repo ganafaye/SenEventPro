@@ -48,19 +48,16 @@ pipeline {
             }
         }
 
-        stage('5. Déploiement Kubernetes') {
+        stage('5. Déploiement avec Ansible') {
             steps {
                 script {
+                    // On garde withKubeConfig pour qu'Ansible puisse utiliser le contexte K8s
                     withKubeConfig([credentialsId: 'k8s-config']) {
-                        echo 'Déploiement sur le cluster Minikube...'
+                        echo 'Lancement du Playbook Ansible...'
                         
-                        // RECTIFICATION : On ajoute --validate=false pour contourner le timeout réseau
-                        sh 'kubectl apply -f k8s/backend.yaml --validate=false'
-                        sh 'kubectl apply -f k8s/frontend.yaml --validate=false'
-                        
-                        echo 'Vérification des ressources :'
-                        sh 'kubectl get pods'
-                        sh 'kubectl get services'
+                        // Exécution d'Ansible
+                        // On ajoute -e "ansible_python_interpreter=/usr/bin/python3" pour être sûr qu'il utilise le bon Python
+                        sh "ansible-playbook -i ansible/inventory.ini ansible/deploy-k8s.yml"
                     }
                 }
             }
@@ -69,10 +66,10 @@ pipeline {
 
     post {
         success {
-            echo 'Félicitations ! Pipeline terminé avec succès et déployé sur K8s.'
+            echo 'Félicitations ! Pipeline terminé avec succès via Ansible.'
         }
         failure {
-            echo 'Le pipeline a échoué. Vérifie les logs Docker ou la config Kube.'
+            echo 'Le pipeline a échoué. Vérifie les logs de la tâche Ansible.'
         }
     }
 }
