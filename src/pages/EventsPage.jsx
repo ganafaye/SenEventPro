@@ -7,7 +7,7 @@ export default function EventsPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/events/")
+      .get("http://192.168.49.2:31000/api/events/")
       .then((res) => setEvents(res.data.results || res.data))
       .catch((err) => console.error(err));
   }, []);

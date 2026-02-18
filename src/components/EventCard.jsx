@@ -4,7 +4,7 @@ const EventCard = ({ event }) => {
   // Gestion de l'image venant de Django
   const imageUrl = event.image?.startsWith('http') 
     ? event.image 
-    : `http://localhost:8000${event.image}`;
+    : `http://192.168.49.2:31000${event.image}`;
 
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 h-full flex flex-col">

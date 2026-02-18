@@ -8,7 +8,7 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/events/')
+    axios.get('http://192.168.49.2:31000/api/events/')
       .then(res => {
         setEvents(res.data);
         setLoading(false);

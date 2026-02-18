@@ -31,7 +31,7 @@ export default function CreateEvent({ onEventCreated }) {
     };
 
     axios
-      .post("http://localhost:8000/api/events/", dataToSend)
+      .post("http://192.168.49.2:31000/api/events/", dataToSend)
       .then((res) => {
         alert("Événement créé avec succès !");
         // Reset du formulaire

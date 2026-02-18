@@ -23,10 +23,11 @@ kind: Service
 metadata:
   name: backend-service
 spec:
+  type: NodePort  # <--- CHANGEMENT ICI
   selector:
     app: backend
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-  type: ClusterIP
+      nodePort: 31000 # <--- Le backend sera accessible sur ce port précis
