@@ -29,6 +29,9 @@ Apres Orchestration avec Kubertes : On a l'adresse : 192.XXX.XX.XX qui est l'adr
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-18 11-48-37" src="https://github.com/user-attachments/assets/4f656937-6d61-452d-b9b2-64befe81ace0" />
 ### Capture du pipeline jenkins
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-18 16-59-46" src="https://github.com/user-attachments/assets/729d1acf-011f-4d13-8e28-dbbbd28ec93c" />
+### Capture du Docker Hub 
+<img width="1920" height="1048" alt="Capture d’écran du 2026-02-17 00-27-24" src="https://github.com/user-attachments/assets/e9503ff0-15e5-439e-8d17-54aeeb418d4f" />
+
 
 
 
