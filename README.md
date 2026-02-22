@@ -18,6 +18,7 @@ Pour lancer le frontend localement avec Docker :
 ```bash
 docker build -t ganafaye/eventmaster-frontend:v1.0 .
 docker run -p 5173:5173 ganafaye/eventmaster-frontend:v1.0
+```
 
 ### 🚀 Interface Utilisateur
 avant Orchestration ave Kubernetes : on l'adresse:localhost....
