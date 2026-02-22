@@ -27,11 +27,13 @@ Apres Orchestration avec Kubertes : On a l'adresse : 192.XXX.XX.XX qui est l'adr
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-18 11-16-01" src="https://github.com/user-attachments/assets/d17ed5d1-24f3-4941-bc22-b20f61028e19" />
 ### Teste on vas modifier le projet et faire git psuh alors ça jenkins vas detetcter automatiquemet le changement de code et ansible vont mettre a jour le projet
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-18 11-48-37" src="https://github.com/user-attachments/assets/4f656937-6d61-452d-b9b2-64befe81ace0" />
-### Capture du pipeline jenkins
+Capture du pipeline jenkins
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-18 16-59-46" src="https://github.com/user-attachments/assets/729d1acf-011f-4d13-8e28-dbbbd28ec93c" />
-### Capture du Docker Hub 
+Capture du Docker Hub 
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-17 00-27-24" src="https://github.com/user-attachments/assets/e9503ff0-15e5-439e-8d17-54aeeb418d4f" />
 
+Capture du JenkinsFile
+<img width="1920" height="1048" alt="Capture d’écran du 2026-02-22 09-39-35" src="https://github.com/user-attachments/assets/4fa14c75-dbd7-4589-a71a-ed34bab87e7c" />
 
 
 
