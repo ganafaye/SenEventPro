@@ -35,5 +35,6 @@ Capture du Docker Hub
 Capture du JenkinsFile
 <img width="1920" height="1048" alt="Capture d’écran du 2026-02-22 09-39-35" src="https://github.com/user-attachments/assets/4fa14c75-dbd7-4589-a71a-ed34bab87e7c" />
 
+<img width="1920" height="1048" alt="Capture d’écran du 2026-02-22 09-39-45" src="https://github.com/user-attachments/assets/8e6bfe23-7b49-47a5-924e-cc01d9f6467d" />
 
 
