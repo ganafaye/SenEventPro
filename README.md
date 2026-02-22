@@ -1,16 +1,20 @@
-# React + Vite
+# 🌟 SenEventPro - Plateforme de Gestion d'Événements
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce dépôt contient le **Frontend** de l'application SenEventPro, développé avec **React** et optimisé par **Vite**. Ce projet s'inscrit dans une architecture microservices orchestrée par **Kubernetes**.
 
-Currently, two official plugins are available:
+## 🛠️ Stack Technique
+- **Framework :** React 18+ (Vite)
+- **Styling :** CSS Modules / Tailwind (selon ton choix)
+- **CI/CD :** Pipeline Jenkins & Automatisation Ansible
+- **Orchestration :** Kubernetes (Minikube) & Docker
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Fonctionnalités
+- Consultation d'événements en temps réel.
+- Interface responsive pour mobiles et tablettes.
+- Communication avec l'API REST Django (Backend).
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🐳 Conteneurisation & Déploiement
+Pour lancer le frontend localement avec Docker :
+```bash
+docker build -t ganafaye/eventmaster-frontend:v1.0 .
+docker run -p 5173:5173 ganafaye/eventmaster-frontend:v1.0
