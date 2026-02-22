@@ -4,13 +4,13 @@ Ce dépôt contient le **Frontend** de l'application SenEventPro, développé av
 
 ## 🛠️ Stack Technique
 - **Framework :** React 18+ (Vite)
-- **Styling :** CSS Modules / Tailwind (selon ton choix)
+- **Styling :** Style simple 
 - **CI/CD :** Pipeline Jenkins & Automatisation Ansible
 - **Orchestration :** Kubernetes (Minikube) & Docker
 
 ## 🚀 Fonctionnalités
 - Consultation d'événements en temps réel.
-- Interface responsive pour mobiles et tablettes.
+- Interface simple qui affice les evenemts et une bouton crée un evenement.
 - Communication avec l'API REST Django (Backend).
 
 ## 🐳 Conteneurisation & Déploiement
